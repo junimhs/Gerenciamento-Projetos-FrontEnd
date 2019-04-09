@@ -1,11 +1,17 @@
-import { creteStore, applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'connected-react-router';
+import history from '~/routes/history';
 
 import rootReducer from './ducks';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware];
+const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+const store = createStore(rootReducer(history), applyMiddleware(...middlewares));
+
+sagaMiddleware.run(rootSaga);
+
+export default store;
