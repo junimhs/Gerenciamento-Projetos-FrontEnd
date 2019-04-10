@@ -3,18 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import TeamsActions from '~/store/ducks/teams';
-import { Container, TeamList, Team } from './styles';
+import {
+  Container, TeamList, Team, NewTeam,
+} from './styles';
 
 class TeamSwitcher extends Component {
   static propTypes = {
     getTeamRequest: PropTypes.func.isRequired,
+    teams: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+        }),
+      ),
+    }).isRequired,
+    selectTeam: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    console.log(this.props);
     const { getTeamRequest } = this.props;
     getTeamRequest();
   }
+
+  handleTeamSelect = (team) => {
+    const { selectTeam } = this.props;
+    selectTeam(team);
+  };
 
   render() {
     const { teams } = this.props;
@@ -22,7 +37,7 @@ class TeamSwitcher extends Component {
       <Container>
         <TeamList>
           {teams.data.map(team => (
-            <Team key={team.id}>
+            <Team key={`Gestao${team.id}`} onClick={() => this.handleTeamSelect(team)}>
               <img
                 src={`https://ui-avatars.com/api/?font-size=0.33&background=7159c1&color=fff&name=${
                   team.name
@@ -31,6 +46,7 @@ class TeamSwitcher extends Component {
               />
             </Team>
           ))}
+          <NewTeam onClick={() => {}}>+</NewTeam>
         </TeamList>
       </Container>
     );
