@@ -12,13 +12,16 @@ export default Creators;
 
 // Onde fica nosso state
 export const INITIAL_STATE = Immutable({
-  data: [],
+  data: [{}],
 });
 
 // Edita nosso state apos chamar o success
-export const getSuccess = (state, { data }) => state.merge({ data: ['Teste', 'Ovo'] });
+export const success = (state, { data }) => {
+  console.log(typeof data);
+  return state.merge({ data });
+};
 
 // Ação para ser chamado no saga
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.GET_TEAM_SUCCESS]: getSuccess,
+  [Types.GET_TEAM_SUCCESS]: success,
 });
