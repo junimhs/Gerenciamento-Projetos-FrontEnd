@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   flex: 1;
-
   overflow-y: scroll;
 
   > header {
@@ -30,8 +29,28 @@ export const Project = styled.div`
   border-radius: 5px;
   margin: 20px;
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   p {
     font-size: 18px;
+  }
+`;
+
+export const Excluir = styled.button`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px dashed #ce3333;
+  color: #ce3333;
+  font-weight: bold;
+  background: transparent;
+  line-height: 20px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #a52b2b;
+    color: #a52b2b;
   }
 `;
