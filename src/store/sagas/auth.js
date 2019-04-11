@@ -22,3 +22,10 @@ export function* signIn({ email, password }) {
     );
   }
 }
+
+export function* signOut() {
+  localStorage.removeItem('@Gestao:token');
+  localStorage.removeItem('@Gestao:team');
+
+  yield put(push('/signin'));
+}
