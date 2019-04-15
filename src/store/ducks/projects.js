@@ -6,6 +6,8 @@ const { Types, Creators } = createActions({
   getProjectsSuccess: ['data'],
   openProjectModal: null,
   closeProjectModal: null,
+  openModal: null,
+  closeModal: null,
   createProjectRequest: ['title'],
   createProjectSuccess: ['project'],
   deleteProjectRequest: ['id'],
@@ -18,12 +20,16 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
   data: [],
   projectModalOpen: false,
+  confirmModalOpen: false,
 });
 
 export const success = (state, { data }) => state.merge({ data });
 
-export const openModal = state => state.merge({ projectModalOpen: true });
-export const closeModal = state => state.merge({ projectModalOpen: false });
+export const openProjectsModal = state => state.merge({ projectModalOpen: true });
+export const closeProjectsModal = state => state.merge({ projectModalOpen: false });
+
+export const confirmOpenModal = state => state.merge({ confirmModalOpen: true });
+export const confirmCloseModal = state => state.merge({ confirmModalOpen: false });
 
 export const createProject = (state, { project }) => state.merge({ data: [...state.data, project] });
 
@@ -34,8 +40,10 @@ export const deleteProject = (state, { id }) => {
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_PROJECTS_SUCCESS]: success,
-  [Types.OPEN_PROJECT_MODAL]: openModal,
-  [Types.CLOSE_PROJECT_MODAL]: closeModal,
+  [Types.OPEN_PROJECT_MODAL]: openProjectsModal,
+  [Types.CLOSE_PROJECT_MODAL]: closeProjectsModal,
   [Types.CREATE_PROJECT_SUCCESS]: createProject,
   [Types.DELETE_PROJECT_SUCCESS]: deleteProject,
+  [Types.OPEN_MODAL]: confirmOpenModal,
+  [Types.CLOSE_MODAL]: confirmCloseModal,
 });

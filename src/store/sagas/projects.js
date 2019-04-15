@@ -29,6 +29,7 @@ export function* deleteProject({ id }) {
   try {
     yield call(api.delete, `projects/${id}`);
     yield put(ProjectsActions.deleteProjectSuccess(id));
+    yield put(ProjectsActions.closeModal());
   } catch (error) {
     yield put(
       toastrActions.add({

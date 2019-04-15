@@ -50,8 +50,8 @@ class TeamSwitcher extends Component {
     e.preventDefault();
     const { createTeamRequest } = this.props;
     const { newTeam } = this.state;
-
     createTeamRequest(newTeam);
+    this.setState({ newTeam: '' });
   };
 
   render() {
