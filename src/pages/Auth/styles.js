@@ -45,8 +45,13 @@ export const SignForm = styled.form`
     transition: border 0.15s ease;
     font-size: 16px;
 
-    &:focus {
+    &:focus,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
       border-color: #7289da;
+      -webkit-box-shadow: 0 0 0 50px #36393f inset;
+      -webkit-text-fill-color: #fff;
     }
   }
 

@@ -7,6 +7,7 @@ import TeamsActions from '~/store/ducks/teams';
 import ProjectsActions from '~/store/ducks/projects';
 import MembersActions from '~/store/ducks/members';
 import Modal from '~/components/Modal';
+import Can from '~/components/Can';
 import Members from '~/components/Members';
 import { Container, Project, Excluir } from './styles';
 
@@ -48,7 +49,6 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     const { getProjectsRequest, activeTeam } = this.props;
     if (activeTeam) {
       getProjectsRequest();
@@ -113,11 +113,15 @@ class Projects extends Component {
           <header>
             <h1>{activeTeam.name}</h1>
             <div>
-              <Button onClick={openProjectModal}> + Novo </Button>
+              <Can checkPermission="projects_create">
+                <Button onClick={openProjectModal}> + Novo </Button>
+              </Can>
               <Button onClick={openMemberModal}> Membros </Button>
-              <Button onClick={() => this.handleExcluirTeam(activeTeam.id)} color="danger">
-                Excluir
-              </Button>
+              <Can checkRole="administrator">
+                <Button onClick={() => this.handleExcluirTeam(activeTeam.id)} color="danger">
+                  Excluir
+                </Button>
+              </Can>
             </div>
           </header>
         )}
